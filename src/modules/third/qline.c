@@ -61,7 +61,7 @@ MOD_UNLOAD() {
 	return MOD_SUCCESS;
 }
 
-/* The actual structure of the command to be performed */
+/* The actual structure of the QLINE command to be performed */
 CMD_FUNC(cmd_qline) {
 	char mo[32];
 	const char *comment = (parc == 3) ? parv[2] : NULL;
@@ -94,6 +94,7 @@ CMD_FUNC(cmd_qline) {
 	cmd_tkl(&me, NULL, 9, tkllayer);
 }
 
+/* The actual structure of the UNQLINE command to be performed */
 CMD_FUNC(cmd_unqline) {
 	const char *tkllayer[6] = {
 		me.name,           /*0  server.name */
