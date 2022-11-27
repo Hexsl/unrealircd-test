@@ -8,6 +8,6 @@
 
 ## WIP changes:
 
-* Augment **swhois.c** to change `/SWHOIS` from a server command to a user-executiable one by opers-only.
+* Augment **swhois.c** to change `/SWHOIS` from a server command to a user-executable one by opers-only.
 * Allow opers to execute most svs* commands (see above); ensure appropriate limits and syncing to prevent `/OS RAW`-esque damage.
 * Create logs for new user commands.
