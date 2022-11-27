@@ -1,6 +1,6 @@
 /*
-* Q-LINE MODULE: Provides the /QLINE command, allowing O-lined users to manually add Q-lines (global nick bans) at the server level, 
-* rather than relying on Services to do so via the /SQLINE server-only command.
+* Q-LINE MODULE: Provides the /QLINE and /UNQLINE commands, allowing O-lined users to manually add Q-lines (global nick bans) at the server level, 
+* rather than relying on Services to do so via the /(UN)SQLINE server-only command.
 * 
 * MIT License
 * 
@@ -28,15 +28,17 @@
 #include "unrealircd.h"
 
 CMD_FUNC(cmd_qline);
+CMD_FUNC(cmd_unqline);
 
 /* Place includes here */
 #define MSG_QLINE      "QLINE"        /* QLINE */
+#define MSG_UNQLINE    "UNQLINE"      /* UNQLINE */
 
 /* Module header */
 ModuleHeader MOD_HEADER = {
 	"third/qline",
 	"1.0.0",
-	"/QLINE command to allow opers to manually add Q-lines (global nick bans).",
+	"/QLINE and /UNQLINE commands to allow opers to manually add Q-lines (global nick bans).",
 	"Hexick",
 	"unrealircd-6",
 };
@@ -44,6 +46,7 @@ ModuleHeader MOD_HEADER = {
 /* Initialiation of the command module */
 MOD_INIT() {
 	CommandAdd(modinfo->handle, MSG_QLINE, cmd_qline, MAXPARA, CMD_USER);
+	CommandAdd(modinfo->handle, MSG_UNQLINE, cmd_unqline, MAXPARA, CMD_USER);
 	MARK_AS_GLOBAL_MODULE(modinfo);
 	return MOD_SUCCESS;
 }
@@ -73,18 +76,45 @@ CMD_FUNC(cmd_qline) {
 		NULL,           /*7  set_at */
 		"no reason"     /*8  reason */
 	};
+	
   	/* Verify privs */
   	if (!ValidatePermissionsForPath("server-ban:gline",client,NULL,NULL,NULL)) {
 		sendnumeric(client, ERR_NOPRIVILEGES);
 		return;
 	}
-  /* Ensure the proper number of parameters */
+	
+  	/* Ensure the proper number of parameters */
 	if (parc < 2)
 		return;
   
-  /* Do the thang */
+  	/* Do the thang */
 	ircsnprintf(mo, sizeof(mo), "%lld", (long long)TStime());
 	tkllayer[7] = mo;
 	tkllayer[8] = comment ? comment : "no reason";
 	cmd_tkl(&me, NULL, 9, tkllayer);
+}
+
+CMD_FUNC(cmd_unqline)
+{
+	const char *tkllayer[6] = {
+		me.name,           /*0  server.name */
+		"-",               /*1  - */
+		"Q",               /*2  Q   */
+		"*",               /*3  unused */
+		parv[1],           /*4  host */
+		client->name       /*5  whoremoved */
+	};
+	
+	/* Verify privs */
+  	if (!ValidatePermissionsForPath("server-ban:gline",client,NULL,NULL,NULL)) {
+		sendnumeric(client, ERR_NOPRIVILEGES);
+		return;
+	}
+	
+	/* Ensure the proper number of parameters */
+	if (parc < 2)
+		return;
+	
+  	/* Do the thang */
+	cmd_tkl(&me, NULL, 6, tkllayer);
 }
