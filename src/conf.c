@@ -4156,7 +4156,7 @@ int	_test_oper(ConfigFile *conf, ConfigEntry *ce)
 			{
 				char *p;
 				for (p = cep->value; *p; p++)
-					if (strchr("orzS", *p))
+					if (strchr("oz", *p))
 					{
 						config_error("%s:%i: oper::modes may not include mode '%c'",
 							cep->file->filename, cep->line_number, *p);
