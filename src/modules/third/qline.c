@@ -94,8 +94,7 @@ CMD_FUNC(cmd_qline) {
 	cmd_tkl(&me, NULL, 9, tkllayer);
 }
 
-CMD_FUNC(cmd_unqline)
-{
+CMD_FUNC(cmd_unqline) {
 	const char *tkllayer[6] = {
 		me.name,           /*0  server.name */
 		"-",               /*1  - */
