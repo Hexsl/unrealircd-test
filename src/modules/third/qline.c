@@ -1,6 +1,6 @@
 /*
 * Q-LINE MODULE: Provides the /QLINE and /UNQLINE commands, allowing O-lined users to manually add Q-lines (global nick bans) at the server level, 
-* rather than relying on Services to do so via the /(UN)SQLINE server-only command.
+* rather than relying on Services to do so via the /(UN)SQLINE server-only command or config file access.
 * 
 * MIT License
 * 
