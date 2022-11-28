@@ -51,7 +51,7 @@ MOD_INIT() {
 	return MOD_SUCCESS;
 }
 
-/* This function is called with the module is loaded */
+/* This function is called when the module is loaded */
 MOD_LOAD() {
 	return MOD_SUCCESS;
 }
