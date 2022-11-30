@@ -39,7 +39,7 @@ ModuleHeader MOD_HEADER
 
 MOD_INIT()
 {
-	CommandAdd(modinfo->handle, MSG_SWHOIS, cmd_swhois, MAXPARA, CMD_USER|CMD_SERVER);
+	CommandAdd(modinfo->handle, MSG_SWHOIS, cmd_swhois, MAXPARA, CMD_SERVER);
 	MARK_AS_OFFICIAL_MODULE(modinfo);
 	return MOD_SUCCESS;
 }
@@ -73,26 +73,6 @@ CMD_FUNC(cmd_swhois)
 	int priority = 0;
 
 	*tag = *swhois = '\0';
-	
-	  /*
-        * Since this command was originally intended to be server-only, I've added a verification process tied to the chgname priv.
-        * This is to prevent unauthorized users from executing now that it's user-to-server. ~ Hexick
-        */
-        if (!ValidatePermissionsForPath("client:set:name",client,NULL,NULL,NULL))
-        {
-                sendnumeric(client, ERR_NOPRIVILEGES);
-                return;
-        }
-
-        /* Log when the command is performed if the acting user is not a U-line. ~ Hexick */
-        if (!IsULine(client))
-        {
-                unreal_log(ULOG_INFO, "svscmds", "SWHOIS_COMMAND", client,
-                                "SWHOIS: $client added a swhois line to $target.details. Content: $swhois",
-                                log_data_string("change_type", "swhois"),
-                                log_data_client("target", target),
-                                log_data_string("new_swhois", parv[5]));
-        }
 
 	if (parc < 3)
 		return;
