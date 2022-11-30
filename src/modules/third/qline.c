@@ -72,11 +72,11 @@ CMD_FUNC(cmd_qline) {
 	const char *comment = (parc == 3) ? parv[2] : NULL;
 	const char *tkllayer[9] = {
 		me.name,        /*0  server.name */
-		"+",            /*1  +|- */
+		"+",            /*1  + = X-line add */
 		"Q",            /*2  X-line type  */
 		"*" ,           /*3  user */
 		parv[1],        /*4  host */
-		client->name,     /*5  setby */
+		client->name,     /*5  Who set the ban */
 		"0",            /*6  expire_at; never expire */
 		NULL,           /*7  set_at */
 		"no reason"     /*8  default reason */
@@ -103,8 +103,8 @@ CMD_FUNC(cmd_qline) {
 CMD_FUNC(cmd_unqline) {
 	const char *tkllayer[6] = {
 		me.name,           /*0  server.name */
-		"-",               /*1  - */
-		"Q",               /*2  Q   */
+		"-",               /*1  - = X-line removed */
+		"Q",               /*2  X-line type */
 		"*",               /*3  unused */
 		parv[1],           /*4  host */
 		client->name       /*5  who removed the line */
