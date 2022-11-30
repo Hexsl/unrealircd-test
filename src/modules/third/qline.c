@@ -73,13 +73,13 @@ CMD_FUNC(cmd_qline) {
 	const char *tkllayer[9] = {
 		me.name,        /*0  server.name */
 		"+",            /*1  +|- */
-		"Q",            /*2  G   */
+		"Q",            /*2  X-line type  */
 		"*" ,           /*3  user */
 		parv[1],        /*4  host */
 		client->name,     /*5  setby */
-		"0",            /*6  expire_at */
+		"0",            /*6  expire_at; never expire */
 		NULL,           /*7  set_at */
-		"no reason"     /*8  reason */
+		"no reason"     /*8  default reason */
 	};
 	
   	/* Verify privs */
@@ -107,7 +107,7 @@ CMD_FUNC(cmd_unqline) {
 		"Q",               /*2  Q   */
 		"*",               /*3  unused */
 		parv[1],           /*4  host */
-		client->name       /*5  whoremoved */
+		client->name       /*5  who removed the line */
 	};
 	
 	/* Verify privs */
