@@ -35,7 +35,6 @@
 CMD_FUNC(cmd_qline);
 CMD_FUNC(cmd_unqline);
 
-/* Place includes here */
 #define MSG_QLINE      "QLINE"        /* QLINE */
 #define MSG_UNQLINE    "UNQLINE"      /* UNQLINE */
 
