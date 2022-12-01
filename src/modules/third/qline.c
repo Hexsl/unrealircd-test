@@ -30,6 +30,22 @@
 * SOFTWARE.
 */
 
+/*** <<<MODULE MANAGER START>>>
+module
+{
+		documentation "https://github.com/Hexsl/hex-unrealircd-modules/blob/main/modules/README.md";
+		troubleshooting "I go by Hex on the UnrealIRCd network, and can be emailed at me@hexick.com";
+		min-unrealircd-version "6.*";
+		max-unrealircd-version "6.*";
+		post-install-text {
+				"The module is installed. Now all you need to do is add a loadmodule line:";
+				"loadmodule \"third/qline\";";
+				"And then /rehash";
+		}
+}
+*** <<<MODULE MANAGER END>>>
+*/
+
 #include "unrealircd.h"
 
 CMD_FUNC(cmd_qline);
